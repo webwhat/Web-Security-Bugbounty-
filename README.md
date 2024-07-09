@@ -142,14 +142,14 @@ GET /users/delete/victim_id  ->403
 POST /users/delete/victim_id ->200
 ```
 
-63. [ ] 경로 횡단
+63. / [ ] 경로 횡단
 
 ```
 POST /users/delete/victim_id          ->403
 POST /users/delete/my_id/..victim_id  ->200
 ```
 
-64. [ ] 파일 형식 변경
+64. / [ ] 파일 형식 변경
 
 ```
 GET /user_data/2341        -> 401
@@ -159,34 +159,33 @@ GET /user_data/2341.config -> 200
 GET /user_data/2341.txt    -> 200
 ```
 
-65. [ ] json 매개변수 오염
+65. / [ ] json 매개변수 오염
 
 ```
 {"userid":1234,"userid":2542}
 ```
 
-66. [ ] 본문에서 배열로 ID를 감습니다.
+66. / [ ] 본문에서 배열로 ID를 감습니다.
 
 ```
 {"userid":123} ->401
 {"userid":[123]} ->200
 ```
 
-67. [ ] json 객체로 ID를 감습니다.
+67. / [ ] json 객체로 ID를 감습니다.
 
 ```
 {"userid":123} ->401
 {"userid":{"userid":123}} ->200
 ```
 
-68. [ ] outdata API 버전 테스트
+68. / [ ] outdata API 버전 테스트
 
 ```
 GET /v3/users_data/1234 ->401
 GET /v1/users_data/1234 ->200
 ```
-
-
+67. http 에서 계정 가입 
 
 
 
