@@ -186,7 +186,7 @@ GET /v3/users_data/1234 ->401
 GET /v1/users_data/1234 ->200
 ```
 67. http 에서 계정 가입 
-
+68. 공격자가 사용자 이름 login.php로 가입할 수 있다면 로그인 페이지가 test.com/login.php 로 로그인 페이지가 탈취당함 
 
 
 
